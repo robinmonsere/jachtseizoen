@@ -1,6 +1,6 @@
 <script>
     import { onMount, onDestroy } from 'svelte'
-    import {Map, MapStyle, config} from '@maptiler/sdk';
+    import {Map, MapStyle, config, Marker} from '@maptiler/sdk';
     import "@maptiler/sdk/dist/maptiler-sdk.css";
 
     let map;
@@ -9,7 +9,7 @@
     config.apiKey = import.meta.env.VITE_PUBLIC_MAP_KEY;
 
     onMount(() => {
-        const initialState = { lng: 139.753, lat: 35.6844, zoom: 14 };
+        const initialState = { lng: 3.2690188, lat: 50.9164767, zoom: 14 };
 
         map = new Map({
             container: mapContainer,
@@ -17,6 +17,10 @@
             center: [initialState.lng, initialState.lat],
             zoom: initialState.zoom
         });
+
+        new Marker({color: "#FF0000"})
+            .setLngLat([3.2690188,50.9164767])
+            .addTo(map);
 
     });
 
