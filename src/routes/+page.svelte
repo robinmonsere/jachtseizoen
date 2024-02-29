@@ -3,7 +3,7 @@
     import {goto} from "$app/navigation";
 
     import Cookies from 'js-cookie';
-    import {_joinGame} from "./+page.js";
+    import {_joinGame, _createGame} from "./+page.js";
     import {onMount} from "svelte";
 
     let userId = Cookies.get('userId');
@@ -49,6 +49,25 @@
             color_name = name ? "green" : "red";
             color_code = code ? "green" : "red";
         }
+    };
+
+    const handleCreate = async () => {
+        isLoading = true;
+        let response = await _createGame(userId);
+        const responseData = await response.json();
+        console.log("Response: ", responseData);
+
+        if (response.status === 200) {
+            Cookies.set('gameId', responseData.id, { expires: 365 });
+            console.log("Creating game with name: " + name + " and code: " + code);
+            code = responseData.id;
+            console.log(code);
+            await handleJoin();
+        } else {
+            isLoading = false;
+            error = "Er is iets fout gegaan, probeer het later opnieuw.";
+        }
+
     };
 
     onMount(async () => {
@@ -102,7 +121,15 @@
         <p class="text-sm dark:text-white">Of</p>
         <span></span>
     </div>
-    <Button href="/make-game" >Maak zelf een spel</Button>
+    <Input
+            bind:value={name}
+            color={color_name}
+            id="large-input"
+            size="lg"
+            placeholder="Naam"
+            on:blur={() => (color_name = name ? "green" : "red")}
+    />
+    <Button on:click={handleCreate} disabled={!name} >Maak zelf een spel</Button>
 </main>
 
 <style lang="scss">

@@ -27,8 +27,6 @@
     }
 
 
-
-
     onMount(async () => {
         game = await getData();
         console.log(game)
