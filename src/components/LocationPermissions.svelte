@@ -23,6 +23,7 @@
     }
 </script>
 
+<!--
 <div>
     <button on:click={getLocation()}><i class="fa-solid fa-location-pin-lock"></i></button>
     <i class="fa-solid fa-location-dot"></i>
@@ -33,3 +34,4 @@
         <p>{error}</p>
     {/if}
 </div>
+-->

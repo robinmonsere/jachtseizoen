@@ -8,9 +8,11 @@ let userId = Cookies.get('userId');
 let preyId;
 let locationData;
 let gameData;
+let drawerHidden = true;
 import {Map, MapStyle, config, Marker} from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
-import {Alert, Button} from "flowbite-svelte";
+import {Alert, Button, Drawer} from "flowbite-svelte";
+import { sineIn } from 'svelte/easing';
 
 
 let map;
@@ -110,6 +112,7 @@ function onReload() {
 
 <main>
     <LocationPermissions />
+    <button on:click={() => {drawerHidden = !drawerHidden}}><i class="fa-solid fa-bars"></i></button>
     <div class="map-wrap">
         <div class="map" bind:this={mapContainer}></div>
     </div>
@@ -118,6 +121,9 @@ function onReload() {
 
     {/if}
     <Button on:click={onReload}>Reload</Button>
+    <Drawer bind:hidden={drawerHidden}>
+        <Button color="red" disabled=true>Leave game</Button>
+    </Drawer>
 </main>
 
 

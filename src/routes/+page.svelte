@@ -86,33 +86,35 @@
         <p>Welcome, User with ID: {userId}</p>
     {/if}
 
-    {#if error}
-        <Alert color="red">
-            <span class="font-medium">{error}</span>
-        </Alert>
-    {/if}
-    <Input
-            bind:value={name}
-            color={color_name}
-            id="large-input"
-            size="lg"
-            placeholder="Naam"
-            on:blur={() => (color_name = name ? "green" : "red")}
-    />
-    <Input
-            bind:value={code}
-            color={color_code}
-            id="large-input"
-            size="lg"
-            placeholder="Spelcode"
-            on:blur={() => (color_code = code ? "green" : "red")}
-    />
-    {#if isLoading}
-        <Spinner />
-    {/if}
-    {#if !isLoading}
-        <Button on:click={handleJoin} disabled={!name || !code}>Meedoen</Button>
-    {/if}
+    <div class="flex-col flex gap-3">
+        {#if error}
+            <Alert color="red">
+                <span class="font-medium">{error}</span>
+            </Alert>
+        {/if}
+        <Input
+                bind:value={name}
+                color={color_name}
+                id="large-input"
+                size="lg"
+                placeholder="Naam"
+                on:blur={() => (color_name = name ? "green" : "red")}
+        />
+        <Input
+                bind:value={code}
+                color={color_code}
+                id="large-input"
+                size="lg"
+                placeholder="Spelcode"
+                on:blur={() => (color_code = code ? "green" : "red")}
+        />
+        {#if isLoading}
+            <Spinner/>
+        {/if}
+        {#if !isLoading}
+            <Button on:click={handleJoin} disabled={!name || !code}>Meedoen</Button>
+        {/if}
+    </div>
 
 
     <div id="divider">
@@ -120,7 +122,7 @@
         <p class="text-sm dark:text-white">Of</p>
         <span></span>
     </div>
-    <Input
+    <div class="flex gap-3 flex-col"><Input
             bind:value={name}
             color={color_name}
             id="large-input"
@@ -128,7 +130,8 @@
             placeholder="Naam"
             on:blur={() => (color_name = name ? "green" : "red")}
     />
-    <Button on:click={handleCreate} disabled={!name} >Maak zelf een spel</Button>
+        <Button on:click={handleCreate} disabled={!name}>Maak zelf een spel</Button>
+    </div>
 </main>
 
 <style lang="scss">
