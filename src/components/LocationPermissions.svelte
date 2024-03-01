@@ -17,6 +17,7 @@
                 console.error("Error getting location:", error);
             }
         } else {
+
             error = "Geolocation is not supported by this browser.";
         }
     }

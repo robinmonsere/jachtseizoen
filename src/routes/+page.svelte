@@ -61,7 +61,6 @@
             Cookies.set('gameId', responseData.id, { expires: 365 });
             console.log("Creating game with name: " + name + " and code: " + code);
             code = responseData.id;
-            console.log(code);
             await handleJoin();
         } else {
             isLoading = false;
