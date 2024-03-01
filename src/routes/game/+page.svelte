@@ -101,6 +101,10 @@ const onLocationShare = async () => {
     }
 };
 
+function onReload() {
+    location.reload();
+}
+
 
 </script>
 
@@ -111,7 +115,9 @@ const onLocationShare = async () => {
     </div>
     {#if preyId === userId}
         <Button on:click={onLocationShare}>Locatie delen</Button>
+
     {/if}
+    <Button on:click={onReload}>Reload</Button>
 </main>
 
 
