@@ -5,10 +5,11 @@
 
     let map;
     let mapContainer;
-
+    export let locData;
     config.apiKey = import.meta.env.VITE_PUBLIC_MAP_KEY;
 
     onMount(() => {
+        console.log(locData, "locData")
         const initialState = { lng: 3.2690188, lat: 50.9164767, zoom: 14 };
 
         map = new Map({

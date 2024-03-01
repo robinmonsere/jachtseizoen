@@ -126,11 +126,11 @@
                     {/if}
 
                     {#if player.id === game.prey}
-                        <Badge color="blue">prooi</Badge>
+                        <Badge color="blue">loper</Badge>
                     {/if}
 
                     {#if host && game.prey === null}
-                        <Button on:click={() => onMakePrey(player.id)} color="red">Maak prooi</Button>
+                        <Button on:click={() => onMakePrey(player.id)} color="red">Selecteer als loper</Button>
                     {/if}
                     <!-- Additional player information can be added here if available -->
                 </div>
@@ -140,7 +140,7 @@
         <Button class="mt-4" on:click={reload} color="primary">Reload</Button>
         {#if host}
             <Button class="mt-4" on:click={handleStart} color="green">Start game</Button>
-            <Button class="mt-4" on:click={resetPrey} color="blue">reset prooi</Button>
+            <Button class="mt-4" on:click={resetPrey} color="blue">reset loper</Button>
         {/if}
     {:else}
         <p class="mt-4">No players found for this game.</p>
