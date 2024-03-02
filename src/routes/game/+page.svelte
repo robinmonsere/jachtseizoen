@@ -13,6 +13,7 @@ import {Map, MapStyle, config, Marker} from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import {Alert, Button, Drawer} from "flowbite-svelte";
 import { sineIn } from 'svelte/easing';
+import {goto} from "$app/navigation";
 
 
 let map;
@@ -95,6 +96,7 @@ const onLocationShare = async () => {
             }).then(response => {
                 if (response.ok) {
                     console.log("Location added");
+                    onReload();
                 }
             });
         });
@@ -102,6 +104,12 @@ const onLocationShare = async () => {
         Alert.show("Geolocation is not supported by this browser.");
     }
 };
+
+async function onLeave() {
+    // remove cookie with gameId
+    Cookies.remove('gameId');
+    await goto('/');
+}
 
 function onReload() {
     location.reload();
@@ -122,7 +130,7 @@ function onReload() {
     {/if}
     <Button on:click={onReload}>Reload</Button>
     <Drawer bind:hidden={drawerHidden}>
-        <Button color="red" disabled=true>Leave game</Button>
+        <Button on:click={onLeave} color="red" >Leave game</Button>
     </Drawer>
 </main>
 
