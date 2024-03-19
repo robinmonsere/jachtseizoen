@@ -16,9 +16,9 @@ export async function POST({request, url}) {
         if (started) {
             return new Response('Game is already started', {status: 409});
         }
+        const startTimeUnix = Math.floor(Date.now() / 1000); // Calculate the current Unix time
 
-        // Update the game to mark it as started
-        await sql`UPDATE games SET started = true WHERE id = ${gameId}`;
+        await sql`UPDATE games SET started = true, startTime = ${startTimeUnix} WHERE id = ${gameId}`;
 
         return new Response(JSON.stringify({success: true}), {status: 200});
     } catch (error) {

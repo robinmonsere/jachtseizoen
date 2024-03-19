@@ -106,23 +106,23 @@
         }
     }
 
+
+    function getPlayerClass(id) {
+        return id === userId ? 'bg-green-200' : '';
+    }
 </script>
 
-<div class="flex flex-col items-center">
-    <h1 class="display-4">Spel met code: {gameId}</h1>
+<div class="flex flex-col items-center p-3">
+    <h1 class="display-4">Spelcode: {gameId}</h1>
 
     {#if players}
         {#each players as player}
-            <Card class="mb-3">
+            <Card class="mb-3 {getPlayerClass(player.id)}">
                 <div class="card-body flex flex-row gap-2">
                     <Avatar circle/>
                     <p class="card-title">{player.name}</p>
-                    {#if player.id === userId}
-                        <Badge color="green">You</Badge>
-                    {/if}
-
                     {#if player.id === game.host}
-                        <Badge color="yellow">Host / jager</Badge>
+                        <Badge color="yellow">jager</Badge>
                     {/if}
 
                     {#if player.id === game.prey}
