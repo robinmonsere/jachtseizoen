@@ -1,9 +1,9 @@
 <script>
-    import {Alert, Button, Input, Spinner} from 'flowbite-svelte';
+    import {Alert, Button, Heading, Input, Spinner} from 'flowbite-svelte';
     import {goto} from "$app/navigation";
 
     import Cookies from 'js-cookie';
-    import {_joinGame, _createGame} from "./+page.js";
+    import {_createGame, _joinGame} from "./+page.js";
     import {onMount} from "svelte";
 
     let userId = Cookies.get('userId');
@@ -82,11 +82,10 @@
 </script>
 
 <main>
-    {#if userId}
-        <p>Welcome, User with ID: {userId}</p>
-    {/if}
+      <div class="flex-col flex gap-3 center-div">
+          <Heading class="mt-7 " customSize="text-4xl">Welkom bij JachtSeizoen!</Heading>
+          <p>Vul je naam in en de spelcode van een bestaand spel, of maak zelf een spel.</p>
 
-    <div class="flex-col flex gap-3">
         {#if error}
             <Alert color="red">
                 <span class="font-medium">{error}</span>
@@ -114,34 +113,41 @@
         {#if !isLoading}
             <Button on:click={handleJoin} disabled={!name || !code}>Meedoen</Button>
         {/if}
+          <div id="divider">
+              <span></span>
+              <p class="text-sm dark:text-white">Of</p>
+              <span></span>
+          </div>
+          <div class="flex gap-3 flex-col"><Input
+                  bind:value={name}
+                  color={color_name}
+                  id="large-input"
+                  size="lg"
+                  placeholder="Naam"
+                  on:blur={() => (color_name = name ? "green" : "red")}
+          />
+              <Button on:click={handleCreate} disabled={!name}>Maak zelf een spel</Button>
+          </div>
     </div>
 
 
-    <div id="divider">
-        <span></span>
-        <p class="text-sm dark:text-white">Of</p>
-        <span></span>
-    </div>
-    <div class="flex gap-3 flex-col"><Input
-            bind:value={name}
-            color={color_name}
-            id="large-input"
-            size="lg"
-            placeholder="Naam"
-            on:blur={() => (color_name = name ? "green" : "red")}
-    />
-        <Button on:click={handleCreate} disabled={!name}>Maak zelf een spel</Button>
-    </div>
+
 </main>
 
 <style lang="scss">
   main {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    width: 80vw;
-    margin: auto;
+    justify-content: flex-start;
+    background: rgb(255,228,222);
+    background: linear-gradient(0deg, rgba(255,228,222,1) 0%, rgba(148,187,233,1) 100%);
 
+    .center-div {
+      max-width: 80vw;
+      height: 100%;
+      margin: auto;
+    }
     #divider {
       display: flex;
       align-items: center;

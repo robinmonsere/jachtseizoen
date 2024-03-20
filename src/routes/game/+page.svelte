@@ -184,7 +184,9 @@ onDestroy(() => {
         </div>
     </div>
     {#if preyId === userId}
-        <Button on:click={onLocationShare}>Locatie delen</Button>
+        <div id="locationButton" class:invisible={!drawerHidden} >
+            <Button on:click={onLocationShare}>Locatie delen</Button>
+        </div>
     {/if}
     <Drawer bind:hidden={drawerHidden}>
         <div class="drawer"><p>Spelcode: {gameId}</p>
@@ -230,6 +232,17 @@ onDestroy(() => {
 
   main {
     max-height: 100vh;
+    position: relative;
+    // location button should be over everything
+    .invisible {
+      display: none;
+    }
+    #locationButton {
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      z-index: 99; /* Set a high z-index to ensure the button is placed over everything else */
+    }
   }
     .top-bar {
         color: white;
@@ -245,7 +258,7 @@ onDestroy(() => {
       }
     }
     .map-wrap {
-        max-height: 80vh;
+        max-height: 90vh;
         position: relative;
         width: 100%;
         height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
