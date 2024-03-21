@@ -137,12 +137,22 @@
             </Card>
         {/each}
 
-        <Button class="mt-4" on:click={reload} color="primary">Reload</Button>
-        {#if host}
-            <Button class="mt-4" on:click={handleStart} color="green">Start game</Button>
-            <Button class="mt-4" on:click={resetPrey} color="blue">reset loper</Button>
-        {/if}
+        <div id="buttons">
+            <Button class="mt-4" on:click={reload} color="primary">Herladen</Button>
+            {#if host}
+                <Button class="mt-4" on:click={handleStart} color="green">Start spel</Button>
+                <Button class="mt-4" on:click={resetPrey} color="blue">reset loper</Button>
+            {/if}
+        </div>
     {:else}
         <p class="mt-4">No players found for this game.</p>
     {/if}
 </div>
+
+<style>
+    #buttons {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+</style>

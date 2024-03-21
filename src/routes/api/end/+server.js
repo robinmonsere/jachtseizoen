@@ -2,6 +2,12 @@ import {sql} from "@vercel/postgres";
 
 export async function POST({request, url}) {
     const gameId = url.searchParams.get('id');
+    const requestBody = await request.json();
+    const winnerId = requestBody.winnerId;
+
+    if (!winnerId) {
+        return new Response('Winner ID missing', {status: 404});
+    }
 
     try {
         // Check if the game is already started
@@ -17,7 +23,7 @@ export async function POST({request, url}) {
             return new Response('Game is already done', {status: 409});
         }
 
-        await sql`UPDATE games SET finished = true WHERE id = ${gameId}`;
+        await sql`UPDATE games SET finished = true, winnerid = ${winnerId} WHERE id = ${gameId}`;
 
         return new Response(JSON.stringify({success: true}), {status: 200});
     } catch (error) {

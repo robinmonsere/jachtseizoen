@@ -53,6 +53,17 @@ onMount(async () => {
 
     gameData = await response.json();
     console.log("Game Data: ", gameData);
+
+    if (gameData == null) {
+        Alert.show("Game not found");
+        await goto('/');
+    }
+
+    if (gameData.finished === true) {
+        await goto('/game-end');
+    }
+
+
     players = gameData.players;
     locationData = gameData.locations;
     console.log("location Data: ", gameData.prey);
@@ -188,8 +199,11 @@ onDestroy(() => {
             <Button on:click={onLocationShare}>Locatie delen</Button>
         </div>
     {/if}
-    <Drawer bind:hidden={drawerHidden}>
-        <div class="drawer"><p>Spelcode: {gameId}</p>
+    <Drawer width="w-50" bind:hidden={drawerHidden}>
+        <div class="drawer">
+            <div class="flex flex-row justify-between">
+                <button on:click={() => {drawerHidden = !drawerHidden}}><i class="fa-solid fa-x m-2"></i></button>
+                <p>Spelcode: {gameId}</p></div>
             <div class="overflow-scroll mt-2 mb-2">
                 {#if gameData != null}
                     {#each gameData.players as player}
@@ -258,7 +272,7 @@ onDestroy(() => {
       }
     }
     .map-wrap {
-        max-height: 90vh;
+        max-height: 100vh;
         position: relative;
         width: 100%;
         height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
