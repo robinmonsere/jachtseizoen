@@ -1,7 +1,8 @@
 <script>
     // Import required modules
     import { onMount } from 'svelte';
-    import Cookies from 'js-cookie'; // Assuming you've imported the js-cookie library
+    import Cookies from 'js-cookie';
+    import {goto} from "$app/navigation"; // Assuming you've imported the js-cookie library
 
     // Get userId from Cookies
     let userId = Cookies.get("userId");
@@ -61,7 +62,9 @@
                     {/each}
                 </ul>
             </div>
+            <button class="bg-gray-400 text-white px-4 py-2 rounded-lg mt-4" on:click={() => {goto("/")}}>Verlaten</button>
         </div>
+
     </div>
 {:else}
     <div class="bg-gray-800 min-h-screen flex flex-col items-center justify-center text-white">
@@ -84,5 +87,6 @@
                 {/each}
             </ul>
         </div>
+        <button class="bg-gray-400 text-white px-4 py-2 rounded-lg mt-4" on:click={() => {goto("/")}}>Verlaten</button>
     </div>
 {/if}
