@@ -22,21 +22,31 @@
     });
 
     function onCatched() {
-        fetch(`/api/game/end?id=${gameId}`, {
+        fetch(`/api/end?id=${gameId}`, {
             method: 'POST',
             body: JSON.stringify({
-                winnerId: gameId
+                winnerId: gameData.host
             }),
             headers: {
                 'content-type': 'application/json'
             }
         });
         console.log("Game ended")
-        goto("/game")
+        goto("/game-end")
     }
 
     function onNotCatched() {
-        //goto("/game")
+        fetch(`/api/end?id=${gameId}`, {
+            method: 'POST',
+            body: JSON.stringify({
+                winnerId: gameData.prey
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        });
+        console.log("Game ended")
+        goto("/game-end")
     }
 </script>
 
