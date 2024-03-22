@@ -71,7 +71,7 @@ onMount(async () => {
     if (isGameOverTime(gameData)) {
         console.log("Game over")
 
-       // await goto('/game-decide-winner');
+       await goto('/game-decide-winner');
     }
 
 
