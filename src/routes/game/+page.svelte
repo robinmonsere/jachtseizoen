@@ -14,10 +14,8 @@ let drawerHidden = true;
 import {Map, MapStyle, config, Marker} from '@maptiler/sdk';
 import "@maptiler/sdk/dist/maptiler-sdk.css";
 import {Alert, Avatar, Badge, Button, Card, Drawer} from "flowbite-svelte";
-import { sineIn } from 'svelte/easing';
 import {goto} from "$app/navigation";
-import * as mapboxgl from "@maptiler/sdk";
-import * as maptilersdk from "@maptiler/sdk";
+
 
 
 let map;
@@ -272,10 +270,10 @@ onDestroy(() => {
       }
     }
     .map-wrap {
-        max-height: 100vh;
+        max-height: 90vh;
         position: relative;
         width: 100%;
-        height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
+        height: 90vh; /* calculate height of the screen minus the heading */
     }
 
     .map {

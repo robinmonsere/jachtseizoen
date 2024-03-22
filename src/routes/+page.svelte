@@ -129,7 +129,7 @@
               <Button on:click={handleCreate} disabled={!name}>Maak zelf een spel</Button>
           </div>
     </div>
-
+    <button on:click={() => {goto("/map-test")}}><i class="fa-regular fa-map m-2"></i></button>
 
 
 </main>

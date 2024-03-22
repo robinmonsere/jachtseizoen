@@ -4,8 +4,5 @@
 <slot></slot>
 
 <style>
-    slot {
-        height: 100vh;
-        background: hotpink;
-    }
+
 </style>
