@@ -40,6 +40,13 @@ function updateTime() {
     }
 }
 
+function isGameOverTime(gamedata) {
+    const currentTime = Math.floor(Date.now() / 1000);
+    console.log((currentTime - gamedata.starttime) > gamedata.gametime)
+    return (currentTime - gamedata.starttime) > gamedata.gametime;
+
+}
+
 
 onMount(async () => {
     const response = await fetch(`/api/game?id=${gameId}`, {
@@ -59,6 +66,12 @@ onMount(async () => {
 
     if (gameData.finished === true) {
         await goto('/game-end');
+    }
+
+    if (isGameOverTime(gameData)) {
+        console.log("Game over")
+
+       // await goto('/game-decide-winner');
     }
 
 
@@ -231,8 +244,9 @@ onDestroy(() => {
                     <p class="mt-4">No players found for this game.</p>
                 {/if}
             </div>
-
-        <Button on:click={onLeave} color="red">Verlaat het spel</Button>
+            <Button on:click={() => {goto("/game-decide-winner")}} >De loper is gevangen!</Button>
+            <p>Het spel duurt {gameData.gametime /60} minuten</p>
+            <Button on:click={onLeave} color="red">Verlaat het spel</Button>
 
         </div>
     </Drawer>
@@ -266,7 +280,7 @@ onDestroy(() => {
     .top-bar {
         color: white;
         background: #FE795D;
-        height: 10vh;
+        height: 10dvh;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -280,7 +294,7 @@ onDestroy(() => {
         max-height: 90vh;
         position: relative;
         width: 100%;
-        height: 90vh; /* calculate height of the screen minus the heading */
+        height: 90dvh; /* calculate height of the screen minus the heading */
     }
 
     .map {

@@ -52,6 +52,7 @@
     function handleStart() {
         fetch(`/api/start?id=${gameId}`, {
             method: 'POST',
+            body: JSON.stringify({gameTime: timeRangeValue * 60}),
             headers: {
                 'content-type': 'application/json'
             }
@@ -139,10 +140,8 @@
         {/each}
         {#if game.host === userId}
             <div class="w-9/12"><h3>Duur van het spel</h3>
-                <Range id="range-minmax" min="30" max="180" bind:value={timeRangeValue} step="10"></Range>
+                <Range id="range-minmax" min="30" max="180" bind:value={timeRangeValue} step="5"></Range>
                 <p>{timeRangeValue} minuten</p></div>
-        {:else }
-            <p>Test</p>
         {/if}
         <div id="buttons">
             <Button class="mt-4" on:click={reload} color="primary">Herladen</Button>

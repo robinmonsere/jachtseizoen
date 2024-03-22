@@ -2,6 +2,13 @@ import {sql} from "@vercel/postgres";
 
 export async function POST({request, url}) {
     const gameId = url.searchParams.get('id');
+    const requestBody = await request.json();
+    const gameTime = requestBody.gameTime;
+
+    if (!gameTime) {
+        return new Response('game time is missing', {status: 404});
+    }
+
 
     try {
         // Check if the game is already started
@@ -18,7 +25,7 @@ export async function POST({request, url}) {
         }
         const startTimeUnix = Math.floor(Date.now() / 1000); // Calculate the current Unix time
 
-        await sql`UPDATE games SET started = true, startTime = ${startTimeUnix} WHERE id = ${gameId}`;
+        await sql`UPDATE games SET started = true, startTime = ${startTimeUnix}, gametime = ${gameTime} WHERE id = ${gameId}`;
 
         return new Response(JSON.stringify({success: true}), {status: 200});
     } catch (error) {
