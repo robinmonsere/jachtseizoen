@@ -66,7 +66,14 @@ onMount(async () => {
     locationData = gameData.locations;
     console.log("location Data: ", gameData.prey);
     preyId = gameData.prey;
+
     const initialState = { lng: 3.253537, lat: 50.920454, zoom: 14 };
+    if (locationData != null) {
+        console.log(locationData.length)
+        initialState.lng = parseFloat(locationData[locationData.length - 1].lon);
+        initialState.lat = parseFloat(locationData[locationData.length - 1].lat);
+    }
+
 
     map = new Map({
         container: mapContainer,
@@ -76,9 +83,6 @@ onMount(async () => {
         positionOptions: {
             enableHighAccuracy: true
         },
-        trackUserLocation: true,
-        showUserLocation: true,
-        enableHighAccuracy: true,
     });
 
     if (locationData != null) {
@@ -134,6 +138,7 @@ const onLocationShare = async () => {
     console.log("Sharing location")
     if (navigator.geolocation) {
         console.log("Geolocation is supported")
+        console.log(navigator.geolocation)
         navigator.geolocation.getCurrentPosition((position) => {
             const {latitude, longitude} = position.coords;
             console.log("Latitude: ", latitude, "Longitude: ", longitude);
@@ -149,7 +154,9 @@ const onLocationShare = async () => {
                     onReload();
                 }
             });
-        });
+        },
+        (error) => {console.log("error" + error)} );
+        console.log("Location shared here")
     } else {
         Alert.show("Geolocation is not supported by this browser.");
     }

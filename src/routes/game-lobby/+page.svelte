@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte';
-    import {Avatar, Badge, Button, Card, Input, Listgroup} from 'flowbite-svelte';
+    import {Avatar, Badge, Button, Card, Input, Listgroup, Range} from 'flowbite-svelte';
     import Cookies from "js-cookie";
     import {goto} from "$app/navigation";
 
@@ -9,6 +9,7 @@
     let gameId = Cookies.get("gameId");
     let userId = Cookies.get("userId");
     let host = false;
+    let timeRangeValue = 60;
     async function getData() {
 
 
@@ -136,7 +137,13 @@
                 </div>
             </Card>
         {/each}
-
+        {#if game.host === userId}
+            <div class="w-9/12"><h3>Duur van het spel</h3>
+                <Range id="range-minmax" min="30" max="180" bind:value={timeRangeValue} step="10"></Range>
+                <p>{timeRangeValue} minuten</p></div>
+        {:else }
+            <p>Test</p>
+        {/if}
         <div id="buttons">
             <Button class="mt-4" on:click={reload} color="primary">Herladen</Button>
             {#if host}
