@@ -272,7 +272,7 @@ onDestroy(() => {
     }
     #locationButton {
       position: absolute;
-      bottom: 0.5rem;
+      top: 15vh;
       left: 0.5rem;
       z-index: 99; /* Set a high z-index to ensure the button is placed over everything else */
     }
@@ -280,7 +280,7 @@ onDestroy(() => {
     .top-bar {
         color: white;
         background: #FE795D;
-        height: 10dvh;
+        height: 10vh;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -294,7 +294,7 @@ onDestroy(() => {
         max-height: 90vh;
         position: relative;
         width: 100%;
-        height: 90dvh; /* calculate height of the screen minus the heading */
+        height: 90vh; /* calculate height of the screen minus the heading */
     }
 
     .map {
